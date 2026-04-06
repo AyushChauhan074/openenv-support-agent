@@ -112,3 +112,4 @@ docker run -p 7860:7860 -p 7861:7861 -e OPENAI_API_KEY=$OPENAI_API_KEY scalorx-o
 - Not static → infinite dynamic tasks
 - Not easy to exploit → multi-layer reward + penalties
 "# openenv-support-agent" 
+# openenv-support-agent
