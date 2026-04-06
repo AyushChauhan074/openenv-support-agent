@@ -1,0 +1,10 @@
+name: advanced-support-env
+description: Realistic customer support RL environment
+actions:
+  - classify
+  - prioritize
+  - respond
+  - resolve
+observation:
+  type: json
+reward: dense
