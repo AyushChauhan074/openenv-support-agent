@@ -21,6 +21,13 @@ TASKS = {
         "urgency": "high",
         "complexity": 1.3,
         "sentiment": "angry"
+    },
+    "expert": {
+        "query": "My account was hacked and unauthorized orders were placed",
+        "category": "Account",
+        "urgency": "high",
+        "complexity": 1.6,
+        "sentiment": "angry"
     }
 }
 

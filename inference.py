@@ -49,11 +49,18 @@ def run_task(task_name):
                 {"action_type": "respond", "content": "We are resolving your issue"},
                 {"action_type": "resolve", "content": "issue resolved"}
             ]
-        else: # hard
+        elif task_name == "hard":
             actions = [
                 {"action_type": "classify", "content": "Billing"},
                 {"action_type": "prioritize", "content": "high"},
                 {"action_type": "respond", "content": "We are resolving your issue"},
+                {"action_type": "resolve", "content": "issue resolved"}
+            ]
+        else: # expert
+            actions = [
+                {"action_type": "classify", "content": "Account"},
+                {"action_type": "prioritize", "content": "high"},
+                {"action_type": "respond", "content": "We have secured your account"},
                 {"action_type": "resolve", "content": "issue resolved"}
             ]
 
@@ -80,6 +87,6 @@ if __name__ == "__main__":
         except requests.exceptions.ConnectionError:
             time.sleep(1)
 
-    tasks = ["easy", "medium", "hard"]
+    tasks = ["easy", "medium", "hard", "expert"]
     for t in tasks:
         run_task(t)

@@ -78,7 +78,7 @@ Each step affects future rewards and system state (e.g., resolving before classi
 
 ## 📋 Task Descriptions & Difficulties
 
-The environment ships with 3 carefully graded static tasks to evaluate agents:
+The environment ships with 4 carefully graded static tasks to evaluate agents:
 
 1. **Easy (`easy`)**: User queries that a payment failed but amount was deducted.
    * **Difficulty:** Low complexity (0.8), neutral sentiment.
@@ -89,15 +89,19 @@ The environment ships with 3 carefully graded static tasks to evaluate agents:
 3. **Hard (`hard`)**: User states they were charged twice, app is broken, and demands an immediate fix.
    * **Difficulty:** Highest complexity (1.3), angry sentiment, overlapping categories.
    * **Objective:** Address "Billing" issues, escalate "high" priority, de-escalate the user's anger, and sequentially resolve.
+4. **Expert (`expert`)**: User claims their account was hacked and unauthorized orders were placed.
+   * **Difficulty:** Extreme complexity (1.6), angry sentiment, panic state.
+   * **Objective:** Identify critical "Account" breach, flag "high" urgency, prioritize safety in the response over everything else, and resolve only when secure.
 
 ---
 
 ## 📈 Baseline Scores
 
-Running the provided `inference.py` using `gpt-3.5-turbo` reliably outputs the following baseline trajectory scores across the available tasks:
+Running the provided `inference.py` using standard LLM models reliably outputs the following baseline trajectory scores across the available tasks:
 - **Easy Task:** `~0.85 - 0.95`
 - **Medium Task:** `~0.80 - 0.90`
 - **Hard Task:** `~0.75 - 0.85`
+- **Expert Task:** `~0.65 - 0.75`
 
 *(Scores naturally fluctuate based on the semantic variations in the LLM's dynamically generated responses).*
 
