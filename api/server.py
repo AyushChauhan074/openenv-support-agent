@@ -12,6 +12,10 @@ app = FastAPI(title="ScalorX OpenEnv API")
 # Global environment instance
 env = SupportEnv()
 
+@app.get("/")
+async def health_check():
+    return {"status": "ok", "message": "Support Agent OpenEnv Running"}
+
 class StepInput(BaseModel):
     action_type: str
     content: str
