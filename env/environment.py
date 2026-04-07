@@ -1,4 +1,4 @@
-from env.semantic import semantic_similarity
+from .semantic import semantic_similarity
 
 def grade(task, trajectory, state):
     category_correct = any(

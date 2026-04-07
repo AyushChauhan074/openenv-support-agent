@@ -1,7 +1,16 @@
 import os
 from openai import OpenAI
+from dotenv import load_dotenv
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+load_dotenv()
+
+_client = None
+
+def _get_client():
+    global _client
+    if _client is None:
+        _client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    return _client
 
 def semantic_similarity(expected, response):
     prompt = f"""
@@ -13,7 +22,7 @@ Return ONLY a number between 0 and 1.
 """
 
     try:
-        res = client.chat.completions.create(
+        res = _get_client().chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
             temperature=0

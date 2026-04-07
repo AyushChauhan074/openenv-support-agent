@@ -1,9 +1,9 @@
 import requests
 
-BASE = "http://localhost:8000"
+BASE = "http://localhost:7860"
 
 def run(task):
-    requests.post(f"{BASE}/reset", params={"task": task})
+    requests.post(f"{BASE}/reset", params={"task_name": task})
 
     actions = [
         {"action_type": "classify", "content": "Billing"},

@@ -1,0 +1,12 @@
+spec_version: "1.0"
+env_name: "Support Agent OpenEnv"
+capabilities:
+  - reset
+  - step
+  - state
+  - grader
+endpoints:
+  reset: /reset
+  step: /step
+  state: /state
+  grader: /grader

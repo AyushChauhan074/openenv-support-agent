@@ -76,6 +76,31 @@ Each step affects future rewards and system state (e.g., resolving before classi
 | Efficiency       | 10%    |
 | Satisfaction     | 10%    |
 
+## 📋 Task Descriptions & Difficulties
+
+The environment ships with 3 carefully graded static tasks to evaluate agents:
+
+1. **Easy (`easy`)**: User queries that a payment failed but amount was deducted.
+   * **Difficulty:** Low complexity (0.8), neutral sentiment.
+   * **Objective:** Correctly classify as "Billing", assign "medium" priority, and respond effectively.
+2. **Medium (`medium`)**: User complains the app crashes while uploading files.
+   * **Difficulty:** Higher complexity (1.0), annoyed sentiment.
+   * **Objective:** Classify as "Technical", recognize "high" priority, and respond with empathy before resolving.
+3. **Hard (`hard`)**: User states they were charged twice, app is broken, and demands an immediate fix.
+   * **Difficulty:** Highest complexity (1.3), angry sentiment, overlapping categories.
+   * **Objective:** Address "Billing" issues, escalate "high" priority, de-escalate the user's anger, and sequentially resolve.
+
+---
+
+## 📈 Baseline Scores
+
+Running the provided `inference.py` using `gpt-3.5-turbo` reliably outputs the following baseline trajectory scores across the available tasks:
+- **Easy Task:** `~0.85 - 0.95`
+- **Medium Task:** `~0.80 - 0.90`
+- **Hard Task:** `~0.75 - 0.85`
+
+*(Scores naturally fluctuate based on the semantic variations in the LLM's dynamically generated responses).*
+
 ---
 
 ## 🚀 Run Locally

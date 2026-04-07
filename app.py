@@ -52,4 +52,4 @@ with gr.Blocks(title="Support Agent OpenEnv") as app:
     score_btn.click(get_score, outputs=output)
 
 if __name__ == "__main__":
-    app.launch(server_name="0.0.0.0", server_port=7861)
+    app.launch(server_name="localhost", server_port=7861)

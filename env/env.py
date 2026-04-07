@@ -1,7 +1,7 @@
-from state import Observation, InternalState
-from reward import compute_reward
-from tasks import TASKS, inject_noise
-from generator import generate_ticket
+from .state import Observation, InternalState
+from .reward import compute_reward
+from .tasks import TASKS, inject_noise
+from .generator import generate_ticket
 
 class SupportEnv:
     def __init__(self):

@@ -1,7 +1,8 @@
-from state import InternalState, update_satisfaction
-from actions import Action
-from reward import compute_reward
-from environment import grade, inject_noise
+from .state import InternalState, Observation
+from .actions import Action
+from .reward import compute_reward
+from .environment import grade
+from .tasks import inject_noise
 
 def test_logic():
     # Setup state
@@ -19,7 +20,7 @@ def test_logic():
 
     # Action: Respond with empathy
     action1 = Action(action_type="respond", content="I am sorry for the trouble.")
-    update_satisfaction(state, action1)
+    reward1 = compute_reward(state, action1, predicted="I am sorry for the trouble.")
     state.history.append("respond")
     print(f"After empathy respond: {state.satisfaction}")
 
