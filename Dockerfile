@@ -14,4 +14,4 @@ EXPOSE 7860
 EXPOSE 7861
 
 # Start script to run both processes
-CMD ["sh", "-c", "python api/server.py & python app.py"]
+CMD ["sh", "-c", "PYTHONPATH=/app python api/server.py & python app.py"]
