@@ -19,5 +19,5 @@ def run(task):
     return score
 
 if __name__ == "__main__":
-    for t in ["easy", "medium", "hard"]:
+    for t in ["easy", "medium", "hard", "expert"]:
         print(t, run(t))
