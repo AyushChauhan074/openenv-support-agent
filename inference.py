@@ -2,6 +2,7 @@ import os
 import requests
 from openai import OpenAI
 import time
+from typing import List, Optional
 
 API_BASE_URL = os.getenv("API_BASE_URL", "https://api.openai.com/v1")
 MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4o-mini")
@@ -17,8 +18,29 @@ client = OpenAI(
     base_url=API_BASE_URL
 )
 
+def log_start(task: str, env: str, model: str) -> None:
+    print(f"[START] task={task} env={env} model={model}", flush=True)
+
+def log_step(step: int, action: str, reward: float, done: bool, error: Optional[str]) -> None:
+    error_val = error if error else "null"
+    done_val = str(done).lower()
+    print(
+        f"[STEP] step={step} action={action} reward={reward:.2f} done={done_val} error={error_val}",
+        flush=True,
+    )
+
+def log_end(success: bool, steps: int, score: float, rewards: List[float]) -> None:
+    rewards_str = ",".join(f"{r:.2f}" for r in rewards)
+    print(f"[END] success={str(success).lower()} steps={steps} score={score:.3f} rewards={rewards_str}", flush=True)
+
 def run_task(task_name):
-    print("[START]")
+    benchmark = "support-agent"
+    log_start(task=task_name, env=benchmark, model=MODEL_NAME)
+    rewards = []
+    steps_taken = 0
+    score = 0.0
+    success = False
+
     try:
         # Reset environment
         requests.post(f"{BASE}/reset", params={"task_name": task_name})
@@ -64,17 +86,32 @@ def run_task(task_name):
                 {"action_type": "resolve", "content": "issue resolved"}
             ]
 
-        for a in actions:
-            print(f"[STEP] Executed action: {a}")
-            requests.post(f"{BASE}/step", json=a)
+        for i, a in enumerate(actions, 1):
+            res = requests.post(f"{BASE}/step", json=a)
+            data = res.json()
+            reward = data.get("reward", 0.0)
+            if reward is None:
+                reward = 0.0
+            done = data.get("done", False)
+            
+            rewards.append(reward)
+            steps_taken = i
+            
+            action_str = f"{a['action_type']}('{a['content']}')"
+            log_step(step=i, action=action_str, reward=reward, done=done, error=None)
+            
+            if done:
+                break
         
         score_res = requests.post(f"{BASE}/grader")
         score = score_res.json().get("score", 0.0)
+        score = min(max(score, 0.0), 1.0)
+        success = score >= 0.5
     except Exception as e:
-        print(f"[STEP] Error: {e}")
+        log_step(step=steps_taken+1, action="error", reward=0.0, done=True, error=str(e))
         score = 0.0
     
-    print("[END]")
+    log_end(success=success, steps=steps_taken, score=score, rewards=rewards)
     return score
 
 if __name__ == "__main__":
