@@ -1,16 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "support-agent-env"
 version = "0.1.0"
 description = "ScalerX Support Agent OpenEnv Submission"
+requires-python = ">=3.10"
 dependencies = [
     "pydantic",
     "fastapi",
     "uvicorn",
     "openai",
     "requests",
-    "python-dotenv"
+    "python-dotenv",
+    "openenv-core>=0.2.0"
 ]
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+[project.scripts]
+server = "server.app:main"
